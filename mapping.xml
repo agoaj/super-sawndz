@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <map name="Various" groupID ="7" collectionID="2c2"/>
+  <map name="Mario" groupID ="8">
+    <map name="Sound Effects" collectionID="32D">
+
+    </map>
+    <map name="Voices" collectionID="104">
+
+    </map>
+  </map>
+  <map name="Link" groupID ="9">
+    <map name="Sound Effects" collectionID="196">
+
+    </map>
+    <map name="Voices" collectionID="BA">
+
+    </map>
+  </map>
+  <map name="Mario" groupID ="8">
+    <map name="Sound Effects" collectionID="32D">
+
+    </map>
+    <map name="Voices" collectionID="104">
+
+    </map>
+  </map>
+</root>
