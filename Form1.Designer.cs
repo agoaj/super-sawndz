@@ -37,17 +37,17 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.textBoxInputFile = new System.Windows.Forms.TextBox();
-			this.button2 = new System.Windows.Forms.Button();
-			this.button3 = new System.Windows.Forms.Button();
+			this.buttonBrowse = new System.Windows.Forms.Button();
+			this.buttonInsert = new System.Windows.Forms.Button();
 			this.label4 = new System.Windows.Forms.Label();
 			this.backgroundWorkerInsert = new System.ComponentModel.BackgroundWorker();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openBRSARToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.button1 = new System.Windows.Forms.Button();
+			this.buttonCreateSawnd = new System.Windows.Forms.Button();
 			this.backgroundWorkerCreateSawnd = new System.ComponentModel.BackgroundWorker();
-			this.play = new System.Windows.Forms.AudioPlaybackPanel();
+			this.audioPlaybackBRSARSound = new System.Windows.Forms.AudioPlaybackPanel();
 			this.audioPlaybackPanelWav = new System.Windows.Forms.AudioPlaybackPanel();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -72,8 +72,7 @@
 			this.treeViewMapping.Name = "treeViewMapping";
 			this.treeViewMapping.Size = new System.Drawing.Size( 282, 381 );
 			this.treeViewMapping.TabIndex = 3;
-			this.treeViewMapping.AfterSelect += new System.Windows.Forms.TreeViewEventHandler( this.treeViewMapping_NodeMouseClick );
-			this.treeViewMapping.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler( this.treeViewMapping_NodeMouseClick );
+			this.treeViewMapping.AfterSelect += new System.Windows.Forms.TreeViewEventHandler( this.treeViewMapping_AfterSelect );
 			this.treeViewMapping.KeyPress += new System.Windows.Forms.KeyPressEventHandler( this.treeViewMapping_KeyPress );
 			// 
 			// textBoxGroupID
@@ -135,24 +134,23 @@
 			// 
 			// button2
 			// 
-			this.button2.Location = new System.Drawing.Point( 309, 39 );
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size( 25, 23 );
-			this.button2.TabIndex = 12;
-			this.button2.Text = "...";
-			this.button2.UseVisualStyleBackColor = true;
-			this.button2.Click += new System.EventHandler( this.button2_Click );
+			this.buttonBrowse.Location = new System.Drawing.Point( 309, 39 );
+			this.buttonBrowse.Name = "button2";
+			this.buttonBrowse.Size = new System.Drawing.Size( 25, 23 );
+			this.buttonBrowse.TabIndex = 12;
+			this.buttonBrowse.Text = "...";
+			this.buttonBrowse.UseVisualStyleBackColor = true;
+			this.buttonBrowse.Click += new System.EventHandler( this.buttonBrowse_Click );
 			// 
 			// button3
 			// 
-			this.button3.Location = new System.Drawing.Point( 259, 65 );
-			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size( 75, 23 );
-			this.button3.TabIndex = 13;
-			this.button3.Text = "Insert";
-			this.button3.UseVisualStyleBackColor = true;
-			this.button3.EnabledChanged += new System.EventHandler( this.button3_EnabledChanged );
-			this.button3.Click += new System.EventHandler( this.button3_Click );
+			this.buttonInsert.Location = new System.Drawing.Point( 259, 65 );
+			this.buttonInsert.Name = "button3";
+			this.buttonInsert.Size = new System.Drawing.Size( 75, 23 );
+			this.buttonInsert.TabIndex = 13;
+			this.buttonInsert.Text = "Insert";
+			this.buttonInsert.UseVisualStyleBackColor = true;
+			this.buttonInsert.Click += new System.EventHandler( this.buttonInsert_Click );
 			// 
 			// label4
 			// 
@@ -203,14 +201,14 @@
 			// 
 			// button1
 			// 
-			this.button1.Enabled = false;
-			this.button1.Location = new System.Drawing.Point( 418, 91 );
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size( 95, 23 );
-			this.button1.TabIndex = 17;
-			this.button1.Text = "Create Sawnd";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler( this.button1_Click_1 );
+			this.buttonCreateSawnd.Enabled = false;
+			this.buttonCreateSawnd.Location = new System.Drawing.Point( 418, 91 );
+			this.buttonCreateSawnd.Name = "button1";
+			this.buttonCreateSawnd.Size = new System.Drawing.Size( 95, 23 );
+			this.buttonCreateSawnd.TabIndex = 17;
+			this.buttonCreateSawnd.Text = "Create Sawnd";
+			this.buttonCreateSawnd.UseVisualStyleBackColor = true;
+			this.buttonCreateSawnd.Click += new System.EventHandler( this.buttonCreateSawnd_Click );
 			// 
 			// backgroundWorkerCreateSawnd
 			// 
@@ -219,10 +217,10 @@
 			// 
 			// play
 			// 
-			this.play.Location = new System.Drawing.Point( 519, 399 );
-			this.play.Name = "play";
-			this.play.Size = new System.Drawing.Size( 282, 111 );
-			this.play.TabIndex = 18;
+			this.audioPlaybackBRSARSound.Location = new System.Drawing.Point( 519, 399 );
+			this.audioPlaybackBRSARSound.Name = "play";
+			this.audioPlaybackBRSARSound.Size = new System.Drawing.Size( 282, 111 );
+			this.audioPlaybackBRSARSound.TabIndex = 18;
 			// 
 			// audioPlaybackPanelWav
 			// 
@@ -236,12 +234,12 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size( 816, 512 );
-			this.Controls.Add( this.play );
-			this.Controls.Add( this.button1 );
+			this.Controls.Add( this.audioPlaybackBRSARSound );
+			this.Controls.Add( this.buttonCreateSawnd );
 			this.Controls.Add( this.label4 );
 			this.Controls.Add( this.audioPlaybackPanelWav );
-			this.Controls.Add( this.button3 );
-			this.Controls.Add( this.button2 );
+			this.Controls.Add( this.buttonInsert );
+			this.Controls.Add( this.buttonBrowse );
 			this.Controls.Add( this.textBoxInputFile );
 			this.Controls.Add( this.label3 );
 			this.Controls.Add( this.label2 );
@@ -274,8 +272,8 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox textBoxInputFile;
-		private System.Windows.Forms.Button button2;
-		private System.Windows.Forms.Button button3;
+		private System.Windows.Forms.Button buttonBrowse;
+		private System.Windows.Forms.Button buttonInsert;
 		private System.Windows.Forms.AudioPlaybackPanel audioPlaybackPanelWav;
 		private System.Windows.Forms.Label label4;
 		private System.ComponentModel.BackgroundWorker backgroundWorkerInsert;
@@ -283,8 +281,8 @@
 		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem openBRSARToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.AudioPlaybackPanel play;
+		private System.Windows.Forms.Button buttonCreateSawnd;
+		private System.Windows.Forms.AudioPlaybackPanel audioPlaybackBRSARSound;
 		private System.ComponentModel.BackgroundWorker backgroundWorkerCreateSawnd;
 	}
 }

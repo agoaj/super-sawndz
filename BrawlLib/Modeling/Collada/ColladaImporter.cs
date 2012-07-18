@@ -27,7 +27,7 @@ namespace BrawlLib.Modeling
         private CheckBox CCW;
         private CheckBox rmpMats;
         private Button button1;
-        private Button button2;
+        private Button buttonBrowse;
         private Panel panel1;
         private Label label1;
         private ComboBox mdlType;
@@ -1466,7 +1466,7 @@ namespace BrawlLib.Modeling
             this.CCW = new System.Windows.Forms.CheckBox();
             this.rmpMats = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonBrowse = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.mdlType = new System.Windows.Forms.ComboBox();
@@ -1585,13 +1585,13 @@ namespace BrawlLib.Modeling
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(307, 105);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.buttonBrowse.Location = new System.Drawing.Point(307, 105);
+            this.buttonBrowse.Name = "button2";
+            this.buttonBrowse.Size = new System.Drawing.Size(75, 23);
+            this.buttonBrowse.TabIndex = 10;
+            this.buttonBrowse.Text = "Cancel";
+            this.buttonBrowse.UseVisualStyleBackColor = true;
+            this.buttonBrowse.Click += new System.EventHandler(this.button2_Click);
             // 
             // panel1
             // 
@@ -1606,7 +1606,7 @@ namespace BrawlLib.Modeling
             this.panel1.Controls.Add(this.CCW);
             this.panel1.Controls.Add(this.rmpMats);
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.buttonBrowse);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
