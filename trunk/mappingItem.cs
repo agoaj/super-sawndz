@@ -8,12 +8,13 @@ using System.ComponentModel;
 
 namespace BrawlSoundConverter
 {
+	/// <summary>
+	/// Represents rsar nodes in a treeview
+	/// </summary>
 	class MappingItem : TreeNode, System.Audio.IAudioSource
 	{
 		public int groupID, collectionID, wavID;
 		public System.Audio.IAudioStream sound;
-		public string groupPath;
-		public string soundPath;
 		public string name;
 		int _fileSize;
 		public int fileSize
@@ -21,77 +22,47 @@ namespace BrawlSoundConverter
 			get
 			{
 				return _fileSize;
-				/*
-				if( this.Nodes.Count == 0 )
-					return _fileSize;
-				else
-				{
-					_fileSize = 0;
-					foreach( MappingItem item in Nodes )
-					{
-						_fileSize += item.fileSize;
-					}
-				}
-				if( _fileSize >= 0xDDDDD )
-					this.BackColor = System.Drawing.Color.Red;
-				else
-					this.BackColor = System.Drawing.Color.White;
-				Text = name + " (" + _fileSize.ToString( "X" ) + ")";
-				return _fileSize;
-				 */
 			}
 			set
 			{
+				//Propagate size changes
 				MappingItem p = Parent as MappingItem;
 				if(p != null)
 					p.sizeOfChildChanged( value - _fileSize );
 				_fileSize = value;
-				//Text = name + " (" + _fileSize.ToString( "X" ) + ")";
+				
+				//Color the node red if it goes over the usual character filesize limit
 				if( _fileSize >= 0xDDDDD )
 					this.BackColor = System.Drawing.Color.Red;
 				else
 					this.BackColor = System.Drawing.Color.White;
+				//Update the name with the new filesize in it
 				generateName();
-				//this.TreeView.Invalidate();
-
 			}
 		}
+
+		//Propagates size changes
 		void sizeOfChildChanged( int diff )
 		{
 			fileSize += diff;
 		}
-
-
-		void _generateName()
-		{
-			lock(this)
-			{
-				if( fileSize != _prevFileSize )
-				{
-					//System.Threading.Monitor.Wait( this );
-					Text = name + " (" + _fileSize.ToString( "X" ) + ")";
-					_prevFileSize = fileSize;
-					//System.Threading.Monitor.Pulse( this );
-				}
-			}
-		}
 		int _prevFileSize = 0;
-		string oldName = "";
-		//Loads Text with the name and filesize, run after adding child nodes/ setting size
-		public string generateName()
+
+		//Loads Text with the name and filesize, run after adding child nodes/setting size
+		public void generateName()
 		{
 			if( fileSize != _prevFileSize )
 			{
-				oldName = name + " (" + _fileSize.ToString( "X" ) + ")";
-				Text = oldName;
+				Text = name + " (" + _fileSize.ToString( "X" ) + ")";
 				_prevFileSize = fileSize;
 			}
-			return oldName;
-
 		}
+
+		//Gets the size of an RWSD Sound node
+		//Doesn't include the header, so it's probably off by a little
 		public void updateSize()
 		{
-			if( soundPath == null || wavID == -1 )
+			if(wavID == -1)
 				return;
 
 			BrawlLib.SSBB.ResourceNodes.RWSDSoundNode sound = brsar.GetNode( groupID, collectionID, wavID ) as BrawlLib.SSBB.ResourceNodes.RWSDSoundNode;
@@ -109,12 +80,6 @@ namespace BrawlSoundConverter
 				}
 			}
 			MappingItem p = this;
-			/*
-			while( p.Parent != null )
-				p = p.Parent as MappingItem;
-			int thatdoesit = p.fileSize;
-			Text = name + " (" + _fileSize.ToString( "X" ) + ")";
-			*/
 			brsar.CloseRSAR();
 			this.TreeView.Invalidate();
 		}
@@ -125,7 +90,6 @@ namespace BrawlSoundConverter
 			this.groupID = group;
 			this.collectionID = collection;
 			this.wavID = wave;
-			soundPath = null;
 			sound = null;
 			_fileSize = 0;
 		}
@@ -137,9 +101,9 @@ namespace BrawlSoundConverter
 
 		public unsafe System.Audio.IAudioStream CreateStream()
 		{
-			if( soundPath == null || wavID == -1 )
+			//If this isn't connected to an RWSD SoundNode then return null
+			if(wavID == -1)
 				return null;
-
 
 			BrawlLib.SSBB.ResourceNodes.RWSDSoundNode sound = brsar.GetNode( groupID, collectionID, wavID ) as BrawlLib.SSBB.ResourceNodes.RWSDSoundNode;
 			BrawlLib.Wii.Audio.ADPCMStream stream;
@@ -147,16 +111,14 @@ namespace BrawlSoundConverter
 			header = *sound.Header;
 			if( header.NumSamples > soundBufferSize )
 			{
-				int a = 324;
+				int breakpoint = 324;
 				System.Windows.Forms.MessageBox.Show( "Sound file is too big for playback: " + header.NumSamples.ToString() + "b / " + soundBufferSize.ToString() + "b" );
 				sound.Dispose();
-				//rsar.Dispose();
 				return null;
 			}
+			//Copy the sound data
 			Memory.Copy( sound._dataAddr, soundData, header.NumSamples );
 			stream = new BrawlLib.Wii.Audio.ADPCMStream( &header, soundData );
-			//sound.Dispose();
-			//rsar.Dispose();
 			brsar.CloseRSAR();
 			return stream;
 		}

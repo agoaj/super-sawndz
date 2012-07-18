@@ -13,6 +13,10 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -88,6 +92,7 @@
     <Compile Include="BrawlLib\OpenGL\CPPEnums.cs" />
     <Compile Include="BrawlLib\OpenGL\Enums.cs" />
     <Compile Include="StreamSource.cs" />
+    <Compile Include="TextBoxWriter.cs" />
     <None Include="BrawlLib\OpenGL\GLBone.cs" />
     <Compile Include="BrawlLib\OpenGL\GLCamera.cs" />
     <Compile Include="BrawlLib\OpenGL\GLContext.cs" />

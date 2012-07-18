@@ -507,10 +507,22 @@ void SawndCreate(long long group)
   int o;
 
   Copy.open("sawnd.sawnd",ios::in | ios::out | ios::binary | ios::app);
+  if(!Copy.good())
+  {
+	  printf("Error creating sawnd.sawnd\n");
+	  printf(strerror( errno ));
+	  return;
+  }
   Copy.put(2);
   writeintc(group);
   // Find the group data.
   Orig.open(brsarName,ios::in | ios::out | ios::binary);
+  if(!Orig.good())
+  {
+	  printf("Error Opening BRSAR %s\n", brsarName);
+	  printf(strerror( errno ));
+	  return;
+  }
   Orig.seekg(24);
   address=readint();
   info_address=address;
@@ -1043,7 +1055,7 @@ int main(int argc, char **argv)
 	  setbuf(stdout, NULL);
 	  Orig.exceptions(ios::badbit || ios::failbit);
 	  Copy.exceptions(ios::badbit || ios::failbit);
-  printf("Sawndz 0.13\n2010-2011 Jaklub\n2012 Agoaj\n\nspecial thanks to mastkalo, ssbbtailsfan, stickman, VILE\n");
+  printf("Sawndz 0.13\n2010-2011 Jaklub\n2012 Agoaj\n\nspecial thanks to mastaklo, ssbbtailsfan, stickman, VILE\n");
   try
   {
   if(argc==1)
@@ -1094,17 +1106,12 @@ int main(int argc, char **argv)
       sscanf(argv[4],"%lld",&arg[2]);
       sscanf(argv[5],"%lld",&arg[3]);
       sscanf(argv[6],"%lld",&arg[4]);
-
-	  //brsarName = "smashbros_sound.brsar";
-	  //spdFile = "sawnd.spd";
 	  if(argc > 7)
 	  {
-		//  printf(argv[7]);
 		brsarName = argv[7];
 	  }
 	  if(argc > 8)
 		  setSoundFileName(argv[8]);
-	//  printf("argc = %d\ninserting %s\n into %s\n", argc, spdFile, brsarName);
       Insert(arg[0],arg[1],arg[2],arg[3],-1,arg[4]);
       return 0;
       }
@@ -1141,7 +1148,7 @@ int main(int argc, char **argv)
       {
       if(argc!=3 && argc!=4)
         {
-        printf("Incorrect number of arguments.\nsawndcreate command requires 1 argument.\ngroup id");
+        printf("Incorrect number of arguments.\nsawndcreate command requires 1 argument.\ngroup id\nOPTIONAL\nbrsar filename\n");
         Sleep(1000);
         return 0;
         }
