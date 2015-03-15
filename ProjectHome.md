@@ -1,0 +1,2 @@
+Super Sawndz is a C# GUI built around Sawndz by Jaklub. It lets you easily manage the sound files of smashbros\_sound.brsar. Easily find wav ids and insert your customer sounds into Super Smash Bros Brawl.
+Only the source code is here, to download the program go to [Brawl Vault](http://forums.kc-mm.com/Gallery/BrawlView.php?Number=27683)
